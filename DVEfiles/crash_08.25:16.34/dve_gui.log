@@ -1,0 +1,71 @@
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+Error: [DVDB012] 
+The database has already been opened as 'V1'.
+Error: [EK-CMD-013]
+[DVDB012] 
+The database has already been opened as 'V1'.
+	Use error_info for more info.
+The VPD file for 'V1' has been regenerated. Please use 'Reload Databases' instead.
+No design was updated from VPD file.
+The VPD file for 'V1' has been regenerated. Please use 'Reload Databases' instead.
+No design was updated from VPD file.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+Error: [EK-CMD-013]
+gui_list_action: No action supported for this item
+	Use error_info for more info.
+The design has assertions or cover properties.
+The assertion browser can be used to view them. Click on the assertion toolbar button or use the menu 'Window->Panes->Assertion' to open it.
+The file '/home/tangdan/Documents/riscv-ddr/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/tangdan/Documents/riscv-ddr/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/tangdan/Documents/riscv-ddr/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/tangdan/Documents/riscv-ddr/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/tangdan/Documents/riscv-ddr/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/tangdan/Documents/riscv-ddr/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/tangdan/Documents/riscv-ddr/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/tangdan/Documents/riscv-ddr/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/tangdan/Documents/riscv-ddr/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+The file '/home/tangdan/Documents/riscv-ddr/vcdplus.vpd' was opened successfully.
+The file '/home/liutong/Documents/vcdplus.vpd' was opened successfully.
+---------------------------------------------
+
+The tool has just exited abnormally:
+
+
+Release = 'I-2014.03'  Architecture = 'linux'  Program = 'DVE'
+
+'161970681 161997854 162000173 -157928870'
+
+---------------------------------------------
+=======================DVE Context and Call Stack=========================
+Command line: /opt/eda/Synopsys/VCS2014/gui/dve/linux/bin/dve.exe
+
+--- Stack trace follows:
+ptrace: Operation not permitted.
+/home/liutong/Documents/sdram_system/11189: No such file or directory.
+/tmp/.stack_annotator_gdb_cmd_file_4FLlXw:3: Error in sourced command file:
+The program is not being run.
+No context available
+==========================================================================

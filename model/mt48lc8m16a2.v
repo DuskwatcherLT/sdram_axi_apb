@@ -932,18 +932,29 @@ module mt48lc8m16a2 (Dq, Addr, Ba, Clk, Cke, Cs_n, Ras_n, Cas_n, We_n, Dqm);
 
     // Timing Parameters for -75 (PC133) and CAS Latency = 2
     specify
-        specparam
-                    tAH  =  0.8,                                        // Addr, Ba Hold Time
-                    tAS  =  1.5,                                        // Addr, Ba Setup Time
-                    tCH  =  2.5,                                        // Clock High-Level Width
-                    tCL  =  2.5,                                        // Clock Low-Level Width
-                    tCK  = 10,                                          // Clock Cycle Time
-                    tDH  =  0.8,                                        // Data-in Hold Time
-                    tDS  =  1.5,                                        // Data-in Setup Time
-                    tCKH =  0.8,                                        // CKE Hold  Time
-                    tCKS =  1.5,                                        // CKE Setup Time
-                    tCMH =  0.8,                                        // CS#, RAS#, CAS#, WE#, DQM# Hold  Time
-                    tCMS =  1.5;                                        // CS#, RAS#, CAS#, WE#, DQM# Setup Time
+        specparam 
+					tAH  =  0.8,                                       
+					// Addr, Ba Hold Time
+					tAS  =  1.5,          
+					// Addr, Ba Setup Time
+					tCH  =  2.5,     
+					// Clock High-Level Width
+					tCL  =  2.5,            
+					// Clock Low-Level Width
+					tCK  = 10,   
+					// Clock Cycle Time
+					tDH  =  0.8,    
+					// Data-in Hold Time
+					tDS  =  1.5,       
+					// Data-in Setup Time
+					tCKH =  0.8,          
+					// CKE Hold  Time
+					tCKS =  1.5,        
+					// CKE Setup Time
+					tCMH =  0.8,     
+					// CS#, RAS#, CAS#, WE#, DQM# Hold  Time
+					tCMS =  1.5;   
+					// CS#, RAS#, CAS#, WE#, DQM# Setup Time
         $width    (posedge Clk,           tCH);
         $width    (negedge Clk,           tCL);
         $period   (negedge Clk,           tCK);

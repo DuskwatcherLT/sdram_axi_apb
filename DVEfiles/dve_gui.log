@@ -1,0 +1,51 @@
+The file '/home/liutong/Documents/sdram_system/vcdplus.vpd' was opened successfully.
+With selected criteria, DVE has found 'results at time 20000
+    ddr_system.wvalid'.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW010] 
+Seek hit end of values with no more matches.
+Warning: [DVWW009] 
+Seek hit time zero with no more matches.
+Warning: [DVWW009] 
+Seek hit time zero with no more matches.
+Warning: [DVWW009] 
+Seek hit time zero with no more matches.
+---------------------------------------------
+
+The tool has just exited abnormally:
+
+
+Release = 'I-2014.03'  Architecture = 'linux'  Program = 'DVE'
+
+'161970681 161997854 162000173'
+
+---------------------------------------------
+=======================DVE Context and Call Stack=========================
+Command line: /opt/eda/Synopsys/VCS2014/gui/dve/linux/bin/dve.exe
+
+--- Stack trace follows:
+ptrace: Operation not permitted.
+/home/liutong/Documents/sdram_system/7278: No such file or directory.
+/tmp/.stack_annotator_gdb_cmd_file_ALzlyy:3: Error in sourced command file:
+The program is not being run.
+No context available
+==========================================================================

@@ -1,0 +1,10 @@
+=======================DVE Context and Call Stack=========================
+Command line: /opt/eda/Synopsys/VCS2014/gui/dve/linux/bin/dve.exe
+
+--- Stack trace follows:
+ptrace: Operation not permitted.
+/home/liutong/Documents/sdram_system/7278: No such file or directory.
+/tmp/.stack_annotator_gdb_cmd_file_ALzlyy:3: Error in sourced command file:
+The program is not being run.
+No context available
+==========================================================================

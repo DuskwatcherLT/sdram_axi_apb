@@ -1,0 +1,142 @@
+0 
+43
+
++cli+4
++define+S50
++incdir+../../rtl/core
++itf+/opt/eda/Synopsys/VCS2014/amd64/lib/vcsdp.tab
++lint=TFIPC-L
++memcbk
++v2k
++vcsd
++vpi
+-Mamsrun=
+-Masflags=
+-Mcc=gcc-4.8
+-Mcfl= -pipe -fPIC -O -I/opt/eda/Synopsys/VCS2014/include
+-Mcplusplus=g++-4.8
+-Mcrt0=
+-Mcrtn=
+-Mcsrc=
+-Mldflags= -Wl,--no-as-needed
+-Mobjects= /opt/eda/Synopsys/VCS2014/amd64/lib/libvirsim.so /opt/eda/Synopsys/VCS2014/amd64/lib/liberrorinf.so /opt/eda/Synopsys/VCS2014/amd64/lib/libsnpsmalloc.so /opt/eda/Synopsys/Verdi2015/share/PLI/VCS/LINUX64/pli.a
+-Mout=simv
+-Msaverestoreobj=/opt/eda/Synopsys/VCS2014/amd64/lib/vcs_save_restore_new.o
+-Msyslibs=-ldl -lm
+-Mvcsaceobjs=
+-P
+-Xcbug=0x1
+-debug=4
+-debug_all
+-debug_obj
+-full64
+-gen_obj
+-line
+-picarchive
+-pp_used
+-sverilog
+-timescale=1ns/10ps
+/opt/eda/Synopsys/VCS2014/amd64/bin/vcs1
+/opt/eda/Synopsys/Verdi2015/share/PLI/VCS/LINUX64/novas.tab
+core_sdram_axi4/src_v/sdram_axi.v
+core_sdram_axi4/src_v/sdram_axi_core.v
+core_sdram_axi4/src_v/sdram_axi_pmem.v
+ddr_system.v
+model/mt48lc16m16a2.v
+80
+sysc_uni_pwd=/home/xyn/sdram_system
+ZSH=/home/xyn/.oh-my-zsh
+XDG_SESSION_ID=3266
+XDG_RUNTIME_DIR=/run/user/1005
+W3264_NO_HOST_CHECK=1
+Virtuoso_HOME=/opt/eda/Cadence/IC617
+Verdi_HOME=/opt/eda/Synopsys/Verdi2015
+VMR_MODE_FLAG=64
+VCS_UVM_HOME=/home/xyn/uvm-1.2/src
+VCS_MX_HOME_INTERNAL=1
+VCS_MODE_FLAG=64
+VCS_HOME=/opt/eda/Synopsys/VCS2014
+VCS_DEPTH=0
+VCS_ARG_ADDED_FOR_TMP=1
+VCS_ARCH=amd64
+UVM_HOME=/home/xyn/uvm-1.2
+UNAME=/bin/uname
+TOOL_HOME=/opt/eda/Synopsys/VCS2014/amd64
+TMUX_PANE=%1
+TMUX=/tmp/tmux-1005/default,17246,0
+Synopsys_Dir=/opt/eda/Synopsys
+StarRC_HOME=/opt/eda/Synopsys/StarRC2015
+SSH_TTY=/dev/pts/21
+SSH_CONNECTION=10.30.5.124 34528 10.30.6.131 22
+SSH_CLIENT=10.30.5.124 51704 22
+SPIKE_PATH=/home/xyn/riscv-toolchain-20190818/bin/
+SNPSLMD_LICENSE_FILE=/opt/eda/Synopsys/License/License.dat:/opt/eda/Synopsys/VCS2014/flexlm//license.dat
+SCRNAME=vcs
+SCRIPT_NAME=vcs
+SCL_HOME=/opt/eda/Synopsys/SCL11.11
+RISCV_OBJCOPY=/home/xyn/riscv-toolchain-20190818/bin/riscv64-unknown-elf-objcopy
+RISCV_GCC=/home/xyn/riscv-toolchain-20190818/bin/riscv64-unknown-elf-gcc
+RISCV=/home/xyn/riscv-toolchain-20190818
+RC_HOME=/opt/eda/Cadence/RC11
+PrimeTime_HOME=/opt/eda/Synopsys/PrimeTime2015
+OVA_UUM=0
+OA_UNSUPPORTED_PLAT=linux_rhel50_gcc48x
+OA_HOME=/opt/eda/Cadence/IC617/oa_v22.50.043
+Mentor_Dir=/opt/eda/Mentor
+MMSIM_HOME=/opt/eda/Cadence/MMSIM15
+MGLS_LICENSE_FILE=/opt/eda/Mentor/License/License.dat
+MGC_HOME=/opt/eda/Mentor/Calibre2015/ixl_cal_2015.4_16.11
+MFLAGS=
+MDS_HOME=/opt/eda/Mentor/ModelSim/modeltech/bin:/opt/eda/Cadence/INNOVUS15/bin:/opt/eda/Cadence/RC11/bin:/opt/eda/Cadence/Incisive14//tools/bin:/opt/eda/Cadence/MMSIM15/tools/spectre/bin:/opt/eda/Cadence/MMSIM15/tools/dfII/bin:/opt/eda/Cadence/MMSIM15/tools/bin:/opt/eda/Cadence/MMSIM15/bin:/opt/eda/Cadence/IC617/tools/plot/bin:/opt/eda/Cadence/IC617/tools/iccraft/bin:/opt/eda/Cadence/IC617/tools/dracula/bin:/opt/eda/Cadence/IC617/tools/dfII/bin:/opt/eda/Cadence/IC617/tools/bin:/opt/eda/Cadence/IC617/share/bin:/opt/eda/Synopsys/Verdi2015/bin:/opt/eda/Synopsys/VCS2014/bin:/opt/eda/Synopsys/StarRC2015/bin:/opt/eda/Synopsys/PrimeTime2015/bin:/opt/eda/Synopsys/Laker_OA2015/bin:/opt/eda/Synopsys/ICC2016/bin:/opt/eda/Synopsys/Hspice2016/hspice/bin:/opt/eda/Synopsys/Formality2016/bin:/opt/eda/Synopsys/dc2016/bin:/opt/eda/Synopsys/SCL11.11/linux64/bin:/home/xyn/.autojump/bin:/home/xyn/.autojump/bin:/opt/ide/Concept/Symutils/linux23.x86_64:/opt/ide/Concept/SpiceVision:/opt/ide/Concept/SGvision:/opt/ide/Concept/RTLvision:/opt/ide/Concept/Gatevision:/opt/eda/Mentor/Calibre2015/ixl_cal_2015.4_16.11/bin:/opt/eda/Mentor/Tessent2013//bin:/opt/eda/Mentor/ModelSim/modeltech/linux:/opt/eda/Cadence/INNOVUS15/bin:/opt/eda/Cadence/RC11/bin:/opt/eda/Cadence/Incisive14//tools/bin:/opt/eda/Cadence/MMSIM15/tools/spectre/bin:/opt/eda/Cadence/MMSIM15/tools/dfII/bin:/opt/eda/Cadence/MMSIM15/tools/bin:/opt/eda/Cadence/MMSIM15/bin:/opt/eda/Cadence/IC617/tools/plot/bin:/opt/eda/Cadence/IC617/tools/iccraft/bin:/opt/eda/Cadence/IC617/tools/dracula/bin:/opt/eda/Cadence/IC617/tools/dfII/bin:/opt/eda/Cadence/IC617/tools/bin:/opt/eda/Cadence/IC617/share/bin:/opt/eda/Synopsys/Verdi2015/bin:/opt/eda/Synopsys/VCS2014/bin:/opt/eda/Synopsys/StarRC2015/bin:/opt/eda/Synopsys/PrimeTime2015/bin:/opt/eda/Synopsys/Laker_OA2015/bin:/opt/eda/Synopsys/ICC2016/bin:/opt/eda/Synopsys/Hspice2016/hspice/bin:/opt/eda/Synopsys/Formality2016/bin:/opt/eda/Synopsys/dc2016/bin:/opt/eda/Synopsys/SCL11.11/linux64/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/xyn/riscv-toolchain-20190818/bin
+MAKE_TERMOUT=/dev/pts/9
+MAKE_TERMERR=/dev/pts/9
+MAKELEVEL=1
+MAKEFLAGS=
+Laker_HOME=/opt/eda/Synopsys/Laker_OA2015
+LSCOLORS=Gxfxcxdxbxegedabagacad
+LESS=-R
+LC_TIME=zh_CN.UTF-8
+LC_TELEPHONE=zh_CN.UTF-8
+LC_PAPER=zh_CN.UTF-8
+LC_NUMERIC=zh_CN.UTF-8
+LC_NAME=zh_CN.UTF-8
+LC_MONETARY=zh_CN.UTF-8
+LC_MEASUREMENT=zh_CN.UTF-8
+LC_IDENTIFICATION=zh_CN.UTF-8
+LC_CTYPE=en_US.UTF-8
+LC_ALL=C
+LC_ADDRESS=zh_CN.UTF-8
+Incisive_HOME=/opt/eda/Cadence/Incisive14/
+ICC_HOME=/opt/eda/Synopsys/ICC2016
+Hspice_HOME=/opt/eda/Synopsys/Hspice2016
+Formality_HOME=/opt/eda/Synopsys/Formality2016
+Encounter_HOME=/opt/eda/Cadence/INNOVUS15
+DFT_HOME=/opt/eda/Mentor/Tessent2013/
+DC_HOME=/opt/eda/Synopsys/dc2016
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1005/bus
+Concept_dir=/opt/ide/Concept
+Cadence_Dir=/opt/eda/Cadence
+CDS_Netlisting_Mode=Digital
+CDS_LOAD_ENV=CSF
+CDS_LIC_FILE=/opt/eda/Cadence/License/License.dat
+CDS_AUTO_64BIT=ALL
+CALIBRE_HOME=/opt/eda/Mentor/Calibre2015/ixl_cal_2015.4_16.11
+CALIBRE_2013_4_ALLOW_IXL_ON_RHEL6=101010
+AUTOJUMP_SOURCED=1
+AUTOJUMP_ERROR_PATH=/home/xyn/.local/share/autojump/errors.log
+0
+7
+1568164814 core_sdram_axi4/src_v/sdram_axi_pmem.v
+1568105559 core_sdram_axi4/src_v/sdram_axi_core.v
+1568105559 core_sdram_axi4/src_v/sdram_axi.v
+1568105559 model/mt48lc16m16a2.v
+1568165153 ddr_system.v
+1453442056 /opt/eda/Synopsys/Verdi2015/share/PLI/VCS/LINUX64/novas.tab
+1393560725 /opt/eda/Synopsys/VCS2014/amd64/lib/vcsdp.tab
+5
+0 
+1393562378 /opt/eda/Synopsys/VCS2014/amd64/lib/libvirsim.so
+1393562197 /opt/eda/Synopsys/VCS2014/amd64/lib/liberrorinf.so
+1393562054 /opt/eda/Synopsys/VCS2014/amd64/lib/libsnpsmalloc.so
+1453442056 /opt/eda/Synopsys/Verdi2015/share/PLI/VCS/LINUX64/pli.a
+1568165166 simv.daidir
