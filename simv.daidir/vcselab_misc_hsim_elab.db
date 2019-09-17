@@ -1,5 +1,5 @@
 psSimBaseName                      	simv
-pDaiDir                            	/home/xyn/sdram_system/simv.daidir
+pDaiDir                            	/home/liutong/sdram_system/simv.daidir
 destPath                           	csrc/
 hsMainFileCount                    	0
 hsMainFileName                     	dummy

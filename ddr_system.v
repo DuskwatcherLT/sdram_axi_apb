@@ -10,14 +10,6 @@
 `define UMCTL2_PORT_NBYTES_0 4
 `define UMCTL2_APB_AW 12
 
-/*
-
-module inout_top(input data_i,inout data,output data_o,input ctr);
-
-assign data =  ctr ? data_i : 1'bz;
-assign data_o = data;
-endmodule 
-*/
 module ddr_system(
 );
 
@@ -145,15 +137,15 @@ wire                                 csysack_0;
 wire                                 cactive_0;
 
 //------------------------------------------------
-    reg             rst_i;
-	reg				clk_i;
-wire [15:0]  Dq_0;
-wire				sdram_clk_o;
-wire				sdram_cke_o;
-wire				sdram_cs_o;
-wire				sdram_ras_o;
-wire				sdram_cas_o;
-wire				sdram_we_o;
+reg             rst_i;
+reg				      clk_i;
+wire [15:0]     Dq_0;
+wire				    sdram_clk_o;
+wire			    	sdram_cke_o;
+wire				    sdram_cs_o;
+wire				    sdram_ras_o;
+wire				    sdram_cas_o;
+wire				    sdram_we_o;
 wire [1:0]			sdram_dqm_o;
 wire [12:0]			sdram_addr_o;
 wire [1:0]			sdram_ba_o;
@@ -163,7 +155,7 @@ wire                sdram_data_out_en_w;
 
 
 
-sdram_axi
+sdram_apb_top
 u_sdram
 (
      .clk_i(clk_i)
@@ -221,24 +213,26 @@ sdram_data_out_w,
 sdram_we_o
 );*/
 
-assign Dq_0 = (sdram_we_o==1 ? sdram_data_out_w : sdram_data_in_w);
-//assign Dq_0 = sdram_data_out_w;
+assign Dq_0 = (sdram_data_out_en_w ? sdram_data_out_w : 16'hzzzz);
+assign sdram_data_in_w = (sdram_we_o?Dq_0:16'hzzzz);
+
 
 //rank sdram 
-mt48lc16m16a2 #(
-.tAC (5.4),
-.tHZ (5.4),
-.tOH (2.5),
-.tMRD (3.0),
-.tRAS (40.0),
-.tRC (58.0),
-.tRCD (18.0),
-.tRFC (60.0),
-.tRP (18.0),
-.tRRD (12.0),
-.tWRa (7.0),
-.tWRm (14.0)
-)
+mt48lc16m16a2
+// #(
+// .tAC (5.4),
+// .tHZ (5.4),
+// .tOH (2.5),
+// .tMRD (3.0),
+// .tRAS (40.0),
+// .tRC (58.0),
+// .tRCD (18.0),
+// .tRFC (60.0),
+// .tRP (18.0),
+// .tRRD (12.0),
+// .tWRa (7.0),
+// .tWRm (14.0)
+// )
 sdram0(
 .Dq(Dq_0),
 .Addr(sdram_addr_o),
@@ -389,7 +383,8 @@ assign csysreq_0 = {1{1'b0}};
 //`define WR_CNT          32'h1000000
 //`define WR_ADDR_STEP    40'd128//one burst is 8*8=64bytes
 //`define WR_ADDR_STEP    40'd64//one burst is 8*8=64bytes
-`define WR_ADDR_STEP    40'd32 
+//`define WR_ADDR_STEP    40'd32 
+`define WR_ADDR_STEP    30'd16
 //`define WR_ADDR_START   40'h1000000000;
 `define WR_ADDR_START   40'h0000000000 
 //`define WR_DATA_START   64'h0123456789abcdef;
@@ -553,7 +548,7 @@ always@(posedge axiClk) begin
             rready <= 1'b1;
             if(rvalid) begin
               burstLen <= burstLen - 8'h1;
-              axiRdata <= axiRdata + 64'h0000000000000008;
+              axiRdata <= axiRdata + 32'h00000008;
             end
           end
           else begin

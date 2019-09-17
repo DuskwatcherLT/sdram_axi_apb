@@ -1,5 +1,6 @@
-/home/xyn/sdram_system/core_sdram_axi4/src_v/sdram_axi.v
-/home/xyn/sdram_system/core_sdram_axi4/src_v/sdram_axi_core.v
-/home/xyn/sdram_system/core_sdram_axi4/src_v/sdram_axi_pmem.v
-/home/xyn/sdram_system/ddr_system.v
-/home/xyn/sdram_system/model/mt48lc16m16a2.v
+/home/liutong/sdram_system/core_sdram_axi4/src_v/sdram_axi.v
+/home/liutong/sdram_system/core_sdram_axi4/src_v/sdram_axi_core.v
+/home/liutong/sdram_system/core_sdram_axi4/src_v/sdram_axi_pmem.v
+/home/liutong/sdram_system/core_sdram_axi4/src_v/sdram_axi_top.v
+/home/liutong/sdram_system/ddr_system.v
+/home/liutong/sdram_system/model/mt48lc16m16a2.v
