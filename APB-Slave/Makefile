@@ -1,7 +1,5 @@
-RTL_FLIST :=  sdram_system.v \
-	     model/mt48lc16m16a2.v \
-	     core_sdram_axi4/src_v/*.v \
-		 ./APB-Slave/APB_Slave.v \
+RTL_FLIST :=  ../APB-Slave/APB_Slave.v \
+			  ../APB-Slave/APB_Slave_tb.v \
 
 NOVAS        := /opt/eda/Synopsys/Verdi2015/share/PLI/VCS/LINUX64
 EXTRA        := -cpp g++-4.8 -cc gcc-4.8 -LDFLAGS -Wl,--no-as-needed -P ${NOVAS}/novas.tab ${NOVAS}/pli.a
@@ -14,8 +12,8 @@ SIM_OPTIONS  := -full64 -PP +v2k -timescale=1ns/10ps \
 				+define+S50 \
                 +incdir+../../rtl/core \
 
-simv : ${RTL_FLIST}
-	${SIM_TOOL} ${SIM_OPTIONS} ${RTL_FLIST}
+simv :
+		${SIM_TOOL} ${SIM_OPTIONS}${RTL_FLIST}
 
 all: simv 
 

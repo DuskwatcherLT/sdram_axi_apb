@@ -10,7 +10,11 @@
 `define UMCTL2_PORT_NBYTES_0 4
 `define UMCTL2_APB_AW 12
 
-module ddr_system(
+//APB define
+`define  ADDRWIDTH 8
+`define  DATAWIDTH 32
+
+module sdram_system(
 );
 
 parameter  AXI_USERW = 1;
@@ -34,13 +38,14 @@ parameter XPI_WAQD_LG2_0 = 3;
 
 //-------------------------------
 //test out
+/*
 
 wire [pRST_WIDTH             -1:0]   ram_rst_n;
 wire [pCK_WIDTH              -1:0]   ck;
 wire [pCK_WIDTH              -1:0]   ck_n;
 
 
-wire [pNO_OF_RANKS           -1:0]   cke;
+wire [pNO_OF_RANKS           -1: 0]   cke;
 wire [pNO_OF_RANKS           -1:0]   odt;
 wire [pNO_OF_RANKS           -1:0]   cs_n;
 wire                                 ras_n;
@@ -65,7 +70,7 @@ wire                                 aresetn_0;
 wire                                 aclk_0;
 
 reg									 axi_rst_n;
-
+*/
 wire [`UMCTL2_A_IDW-1:0]             awid_0;
 wire                                 awvalid_0;
 wire                                 awready_0;
@@ -153,8 +158,19 @@ wire [ 15:0]        sdram_data_in_w;
 wire [ 15:0]        sdram_data_out_w;
 wire                sdram_data_out_en_w;
 
+//------------------APB WIER---------
+wire                        PCLK_i;
+wire                        PRESETn_i;
+wire [`ADDRWIDTH-1:0]       PADDR_i;
+wire                        PWRITE_i;
+wire                        PSEL_i;
+wire                        PENABLE_i;   
+wire [`DATAWIDTH-1:0]       PWDATA_i;
+wire [`DATAWIDTH-1:0]       PRDATA_o;
+wire                        PREADY_o;                
 
 
+//-----------------------------------------------
 sdram_apb_top
 u_sdram
 (
@@ -203,15 +219,18 @@ u_sdram
     ,.sdram_data_input_i(sdram_data_in_w)
     ,.sdram_data_output_o(sdram_data_out_w)
     ,.sdram_data_out_en_o(sdram_data_out_en_w)
+
+    //APB Interface
+    ,.PCLK(PCLK_i)
+    ,.PRESETn(PRESETn_i)
+    ,.PADDR(PADDR_i)
+    ,.PWRITE(PWRITE_i)
+    ,.PSEL(PSEL_i)
+    ,.PENABLE(PENABLE_i)
+    ,.PWDATA(PWDATA_i)
+    ,.PRDATA(PRDATA_o)
+    ,.PREADY(PREADY_o)
 );
-/*
-inout Dq_0 [15:0];
-inout_top i_o(
-sdram_data_in_w,
-Dq_0,
-sdram_data_out_w,
-sdram_we_o
-);*/
 
 assign Dq_0 = (sdram_data_out_en_w ? sdram_data_out_w : 16'hzzzz);
 assign sdram_data_in_w = (sdram_we_o?Dq_0:16'hzzzz);
@@ -245,21 +264,147 @@ sdram0(
 .We_n(sdram_we_o),
 .Dqm(sdram_dqm_o)
 );
+
+//-----------------APB---------------------
+  reg                         PCLK;
+  reg                         PRESETn;
+  reg        [`ADDRWIDTH-1:0] PADDR;
+  reg                         PWRITE;
+  reg                         PSEL;
+  reg     	 [`DATAWIDTH-1:0] PWDATA;
+  reg                         PREADY;
+  reg                         PENABLE;
+  reg        [`DATAWIDTH-1:0] PRDATA;
+  assign PCLK_i = PCLK;
+  assign PRESETn_i = PRESETn;
+  assign PADDR_i = PADDR;
+  assign PWRITE_i = PWRITE;
+  assign PSEL_i = PSEL;
+  assign PWDATA_i = PWDATA;
+  assign PENABLE_i = PENABLE;
+  assign PREADY = PREADY_o;
+  assign PRDATA = PRDATA_o;
+  /*
+  `define apbWIDLE 2'b00
+  `define apbWSETUP 2'b01
+  `define apbWENABLE 2'b10
+  `define apbRIDLE 2'b00
+  `define apbRSETUP 2'b01
+  `define apbRENABLE 2'b10
+*/
+  `define apbWIDLE 3'b000
+  `define apbWSETUP 3'b001
+  `define apbWENABLE 3'b010
+  `define apbRIDLE 3'b011
+  `define apbRSETUP 3'b100
+  `define apbRENABLE 3'b101
+
+  /*
+  reg [2:0] apbWstate;
+  reg [2:0] apbRstate;
+  */
+  reg [2:0] apbstate;
+  
+  integer i=0;
+  integer j=0;
+  always@(negedge PCLK) begin
+    if(!PRESETn)begin
+      PSEL <=0;
+      PADDR <=0;
+      PWRITE <=0;  
+      //apbWstate <= `apbWIDLE;
+      //apbRstate <= `apbRIDLE;
+      apbstate <= `apbWIDLE;
+    end
+    else begin
+      if(apbstate == `apbWIDLE) begin
+          PSEL <=1;
+          PENABLE <=0;
+          //apbstate<=`apbRSETUP
+          apbstate <= `apbWSETUP;
+        end
+      else if (apbstate == `apbWSETUP&&i < 2**4) begin
+        PWDATA <=i;
+        PADDR <=i;
+        PWRITE <=1;
+        PENABLE <=0;
+        i=i+1;
+        apbstate <= `apbWENABLE;
+      end
+      else if (apbstate == `apbWENABLE) begin
+        PENABLE <=1;
+        $display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+        apbstate <= `apbWSETUP;
+        
+      end
+      else if (i >= 2**4) begin
+         PWRITE <=0;
+         //#10
+         apbstate <= `apbRIDLE;
+      end
+
+      if(apbstate == `apbRIDLE)begin
+        PSEL <=1;
+        PENABLE <=0;
+        apbstate <= `apbRSETUP;
+      end
+      else if (apbstate == `apbRSETUP&&j< 2**4) begin
+         PADDR <=j;
+         PWRITE <=0;
+         PENABLE <= 0;
+         j=j+1;
+         apbstate <= `apbRENABLE;
+      end
+      else if (apbstate == `apbRENABLE) begin
+        PENABLE <=1;
+        $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+        apbstate <=`apbRSETUP;
+      end
+      else if (j >= 2**4) begin
+         apbstate <= `apbWIDLE;
+      end
+    end    
+  end
+
 /*
-mt48lc16m16a2 sdram1(
-.Dq(dq[31:16]),
-.Addr(sdram_addr_o),
-.Ba(sdram_ba_o),
-.Clk(sdram_clk_o),
-.Cke(sdram_cke_o),
-.Cs_n(sdram_cs_o),
-.Ras_n(sdram_ras_o),
-.Cas_n(sdram_cas_o),
-.We_n(sdram_we_o),
-.Dqm(sdram_dqm_o)
+ integer i;
+ integer j;
 
+ task Write;
+ begin
+ 	// #1;
+	for (i = 0; i < 2**`ADDRWIDTH; i=i+1) begin
+	@(negedge PCLK) begin
+	 	PSEL = 1;
+	 	PWRITE = 1;
+		PADDR = i;
+		PWDATA = i;
+    PENABLE = 0;
+    
+   
+	$display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+	 end
+	end
+  end
+  endtask
 
-);
+		 
+task Read;
+begin 
+  PWRITE = 0;
+	for (j = 0;  j< 2**`ADDRWIDTH; j= j+1) begin
+	@(negedge PCLK) begin
+	 	PSEL = 1;
+	 	PWRITE = 0;
+		PADDR = j; 
+    PENABLE = 0;
+    
+	  $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+   
+	 end
+end
+end
+ endtask
 */
 //-------------AXI------------------------------------------------
 reg   [3:0]            awid;
@@ -573,36 +718,35 @@ always@(posedge axiClk) begin
 end
 //-----------reset and clock--------------------------------------
 //assign aclk_i= axiClk;
-assign clk_i = axiClk;
 
-
-//assign rst_i = 
 initial begin
- // ddrClk   <= 0;
-//	clk_i <= 0;
+    PCLK = 0;
+    PRESETn = 0;
+    #10
+    PRESETn = 1;
+    PSEL = 0;
+   /*
+    #10
+    Write;
+   // PSEL = 0;
+    #20
+    Read;
+    #10000; 
+    */
+  end
+always #1 PCLK =  ~PCLK;
+
+assign clk_i = axiClk;
+initial begin
 	rst_i <= 0;
-	axi_rst_n <= 0;
 	axiClk <=0;
  #100
  rst_i <= 1;
- //again to be zero
 end
-
-//assign axiClk = ddrClk;
-/*
-always begin
-  #10.00 ddrClk <= ~ddrClk;
-end
-*/
 always begin 
-	#10.00 axiClk <= ~axiClk;
+	#10.00 axiClk = ~axiClk;
 end 
-/*
-always begin 
-	#10.00 clk_i <=  ~clk_i;
 
-end 
-*/
 
 /*
 initial begin
