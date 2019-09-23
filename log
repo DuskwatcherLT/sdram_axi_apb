@@ -1,41 +1,23 @@
 Command: ./simv -l log
 Chronologic VCS simulator copyright 1991-2014
 Contains Synopsys proprietary information.
-Compiler version I-2014.03_Full64; Runtime version I-2014.03_Full64;  Sep 20 09:26 2019
+Compiler version I-2014.03_Full64; Runtime version I-2014.03_Full64;  Sep 23 14:21 2019
 start vpd!!!
 VCD+ Writer I-2014.03_Full64 Copyright (c) 1991-2014 by Synopsys Inc.
 PADDR 00, PWDATA 00000000  
-PADDR 01, PWDATA 00000001  
-PADDR 02, PWDATA 00000002  
-PADDR 03, PWDATA 00000003  
-PADDR 04, PWDATA 00000004  
-PADDR 05, PWDATA 00000005  
-PADDR 06, PWDATA 00000006  
-PADDR 07, PWDATA 00000007  
-PADDR 08, PWDATA 00000008  
-PADDR 09, PWDATA 00000009  
-PADDR 0a, PWDATA 0000000a  
-PADDR 0b, PWDATA 0000000b  
-PADDR 0c, PWDATA 0000000c  
-PADDR 0d, PWDATA 0000000d  
-PADDR 0e, PWDATA 0000000e  
-PADDR 0f, PWDATA 0000000f  
+PADDR 01, PWDATA 00000000  
+PADDR 02, PWDATA 00000000  
+PADDR 03, PWDATA 00000002  
+PADDR 04, PWDATA 00000000  
+PADDR 05, PWDATA 00000001  
+PADDR 06, PWDATA 00000000  
 PADDR 00, PRDATA 00000000  
 PADDR 01, PRDATA 00000000  
-PADDR 02, PRDATA 00000001  
+PADDR 02, PRDATA 00000000  
 PADDR 03, PRDATA 00000002  
-PADDR 04, PRDATA 00000003  
-PADDR 05, PRDATA 00000004  
-PADDR 06, PRDATA 00000005  
-PADDR 07, PRDATA 00000006  
-PADDR 08, PRDATA 00000007  
-PADDR 09, PRDATA 00000008  
-PADDR 0a, PRDATA 00000009  
-PADDR 0b, PRDATA 0000000a  
-PADDR 0c, PRDATA 0000000b  
-PADDR 0d, PRDATA 0000000c  
-PADDR 0e, PRDATA 0000000d  
-PADDR 0f, PRDATA 0000000e  
+PADDR 04, PRDATA 00000000  
+PADDR 05, PRDATA 00000001  
+PADDR 06, PRDATA 00000000  
 sdram_system.sdram0 : at time  101520.0 ns AREF : Auto Refresh
 sdram_system.sdram0 : at time  101720.0 ns AREF : Auto Refresh
 sdram_system.sdram0 : at time  101920.0 ns LMR  : Load Mode Register
@@ -3150,9 +3132,9 @@ sdram_system.sdram0 : at time  201305.0 ns READ : Bank = 3 Row = 0000, Col = 1fb
 time( 201330.0 ns) axiRdCnt(       255) araddr(0000000ff0) burstLen(  2) [expected data:01235557 read data:01235557] (matched:YES)
 time( 201370.0 ns) axiRdCnt(       255) araddr(0000000ff0) burstLen(  1) [expected data:0123555f read data:0123555f] (matched:YES)
 Test Over!!!
-$finish called from file "sdram_system.v", line 768.
+$finish called from file "sdram_system.v", line 948.
 $finish at simulation time  201790.0 ns
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 201790000 ps
-CPU Time:      1.000 seconds;       Data structure size:  80.0Mb
-Fri Sep 20 09:26:20 2019
+CPU Time:      0.990 seconds;       Data structure size:  80.0Mb
+Mon Sep 23 14:22:00 2019

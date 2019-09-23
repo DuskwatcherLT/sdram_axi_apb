@@ -29,6 +29,7 @@ always @(negedge PRESETn or negedge PCLK) begin
     else begin
         case(State) 
         `IDLE : begin
+         PREADY <= 0;
          PRDATA <= 0;
             if (PSEL&&!PENABLE)begin
                 State <= `SETUP;
@@ -39,6 +40,7 @@ always @(negedge PRESETn or negedge PCLK) begin
         end
 
         `SETUP : begin
+         PREADY <= 0;
             if (PSEL&&!PENABLE) begin
                
                 State <= `ENABLE;        

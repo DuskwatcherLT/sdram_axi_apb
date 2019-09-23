@@ -14,6 +14,14 @@
 `define  ADDRWIDTH 8
 `define  DATAWIDTH 32
 
+
+`define         reserved  3'b000 
+`define         WB  1'b0            
+`define         Op_Mode  2'b00       
+`define         Cas_Latency  3'b010  
+`define         BT  1'b0           
+`define         Burst_Length 3'b001  
+
 module sdram_system(
 );
 
@@ -230,6 +238,7 @@ u_sdram
     ,.PWDATA(PWDATA_i)
     ,.PRDATA(PRDATA_o)
     ,.PREADY(PREADY_o)
+
 );
 
 assign Dq_0 = (sdram_data_out_en_w ? sdram_data_out_w : 16'hzzzz);
@@ -299,10 +308,10 @@ sdram0(
   `define apbRSETUP 3'b100
   `define apbRENABLE 3'b101
 
-  /*
+  
   reg [2:0] apbWstate;
   reg [2:0] apbRstate;
-  */
+  
   reg [2:0] apbstate;
   
   integer i=0;
@@ -323,21 +332,51 @@ sdram0(
           //apbstate<=`apbRSETUP
           apbstate <= `apbWSETUP;
         end
-      else if (apbstate == `apbWSETUP&&i < 2**4) begin
-        PWDATA <=i;
+      else if (apbstate == `apbWSETUP&&i < 7) begin
         PADDR <=i;
         PWRITE <=1;
         PENABLE <=0;
-        i=i+1;
-        apbstate <= `apbWENABLE;
+        apbstate <= `apbWENABLE;        
+        case (i)
+           0: begin
+	        	PWDATA = `reserved;
+           end 
+           1: begin
+	      	  PWDATA = `WB;
+           end
+           2: begin
+	      	  PWDATA = `Op_Mode;
+           end
+           3: begin
+	      	PWDATA = `Cas_Latency;
+           end
+           4: begin
+	      	PWDATA = `BT;
+           end
+           5: begin
+	      	PWDATA = `Burst_Length;
+           end
+           6: begin 
+           PWDATA = 32'h00000000;
+           end
+           default:begin
+	      	PWDATA = 32'h00000000;
+          end
+      endcase
+       
+        //i=i+1;
       end
       else if (apbstate == `apbWENABLE) begin
         PENABLE <=1;
-        $display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+        if(PREADY)begin
+           $display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+            i=i+1;
+        end
+       
         apbstate <= `apbWSETUP;
         
       end
-      else if (i >= 2**4) begin
+      else if (i >= 7) begin
          PWRITE <=0;
          //#10
          apbstate <= `apbRIDLE;
@@ -348,64 +387,204 @@ sdram0(
         PENABLE <=0;
         apbstate <= `apbRSETUP;
       end
-      else if (apbstate == `apbRSETUP&&j< 2**4) begin
+      else if (apbstate == `apbRSETUP&&j< 7) begin
          PADDR <=j;
          PWRITE <=0;
          PENABLE <= 0;
-         j=j+1;
          apbstate <= `apbRENABLE;
       end
       else if (apbstate == `apbRENABLE) begin
         PENABLE <=1;
-        $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+        if(PREADY) begin
+            j=j+1;
+            $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+        end
+        //j=j+1;
         apbstate <=`apbRSETUP;
       end
-      else if (j >= 2**4) begin
+      else if (j >=7) begin
          apbstate <= `apbWIDLE;
       end
     end    
   end
 
-/*
- integer i;
- integer j;
 
- task Write;
+//Transfer parameters using apb.
+ 
+ /*integer i;
+ integer j;
+task Write;
  begin
- 	// #1;
-	for (i = 0; i < 2**`ADDRWIDTH; i=i+1) begin
+	//for (i = 0; i < 2**`ADDRWIDTH; i=i+1) begin
+	for (i = 0; i < 6; i=i+1) begin
 	@(negedge PCLK) begin
 	 	PSEL = 1;
 	 	PWRITE = 1;
-		PADDR = i;
-		PWDATA = i;
-    PENABLE = 0;
-    
-   
-	$display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
-	 end
-	end
-  end
-  endtask
+    case (i)
+      0: begin
+        	PADDR = i;
+	      	PWDATA = `reserved;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+          if (PREADY) begin
+              $display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+          end
+      end 
+      1: begin
+        	PADDR = i;
+	      	PWDATA = `WB;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+	        if (PREADY) begin
+              $display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+          end
+      end
+      2: begin
+        	PADDR = i;
+	      	PWDATA = `Op_Mode;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+          if (PREADY) begin
+              $display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+          end
+      end
+      3: begin
+        	PADDR = i;
+	      	PWDATA = `Cas_Latency;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+          if (PREADY) begin
+              $display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+          end
+      end
+      4: begin
+        	PADDR = i;
+	      	PWDATA = `BT;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+          if (PREADY) begin
+              $display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+          end
+      end
+      5: begin
+        	PADDR = i;
+	      	PWDATA = `Burst_Length;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+          if (PREADY) begin
+              $display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+          end
+      end
+      default:
+          begin
+        	PADDR = i;
+	      	PWDATA = 32'h00000000;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+          if (PREADY) begin
+              $display("PADDR %h, PWDATA %h  ",PADDR,PWDATA);
+          end
+          end
+    endcase
+	  end
+    end
+end
+endtask
 
-		 
+
+
 task Read;
-begin 
-  PWRITE = 0;
-	for (j = 0;  j< 2**`ADDRWIDTH; j= j+1) begin
+ begin
+ 	// #1;
+	//for (i = 0; i < 2**`ADDRWIDTH; i=i+1) begin
+	for (j = 0; j < 6; j=j+1) begin
 	@(negedge PCLK) begin
 	 	PSEL = 1;
 	 	PWRITE = 0;
-		PADDR = j; 
     PENABLE = 0;
-    
-	  $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
-   
-	 end
+    case (j)
+      0: begin
+        	PADDR = j;
+	      	
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+          if (PREADY) begin
+            $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+          end
+	     
+      end 
+      1: begin
+        	PADDR = j;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+          if (PREADY) begin
+            $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+          end
+      end
+      2: begin
+        	PADDR = j;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+	        if (PREADY) begin
+            $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+          end
+      end
+      3: begin
+        	PADDR = j;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+	        if (PREADY) begin
+            $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+          end
+      end
+      4: begin
+        	PADDR = j;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+	        if (PREADY) begin
+            $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+          end
+      end
+      5: begin
+        	PADDR = j;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+	        if (PREADY) begin
+            $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+          end
+      end
+      default:
+          begin
+        	PADDR = j;
+          PENABLE = 0;
+          #2 
+          PENABLE = 1;
+	        if (PREADY) begin
+            $display("PADDR %h, PRDATA %h  ",PADDR,PRDATA);
+          end
+          end
+    endcase
+	  end
+  end
 end
-end
- endtask
+endtask
 */
+
+
+
 //-------------AXI------------------------------------------------
 reg   [3:0]            awid;
 reg                                  awvalid;
@@ -536,6 +715,7 @@ assign csysreq_0 = {1{1'b0}};
 `define WR_DATA_START	32'h01234567
 //`define WR_DATA_START   64'h0000000000000000;
 `define BURST_LEN_INIT  8'h2;
+//`define BURST_LEN_INIT  8'h4;
 
 //`define BURST_LEN_INIT  8'h2;
 `define WR_STAT_IDLE    3'b000
@@ -634,11 +814,12 @@ always@(posedge axiClk) begin
           awid <= 12'h0;
           awvalid <= 1'b1;
           awaddr <= axiAwaddr;
+          //awlen <= 8'h03;
           awlen <= 8'h1;
-		  //awlen <= 8'h07;//8 burst len
+		     //awlen <= 8'h07;//8 burst len
           //awsize <= 3'h3;//64bit(8Byte)
           awsize <= 3'h2;
-		  awburst <= 2'h1;
+		      awburst <= 2'h1;
           awcache <= 4'h0;
           burstLen <= `BURST_LEN_INIT; 
         end
@@ -673,11 +854,12 @@ always@(posedge axiClk) begin
           arid <= 12'h0;
           arvalid <= 1'b1;
           araddr <= axiAraddr;
+          //arlen <=8'h03;
           //arlen <= 8'h07;//8 burst len
           arlen <= 8'h1;
-		  //arsize <= 3'h3;//64bit(8Byte)
+		      //arsize <= 3'h3;//64bit(8Byte)
           arsize <= 3'h2;
-		  arburst <= 2'h1;
+		      arburst <= 2'h1;
           arcache <= 4'h0;
           rready <= 1'b0;
           burstLen <= `BURST_LEN_INIT;
@@ -725,14 +907,12 @@ initial begin
     #10
     PRESETn = 1;
     PSEL = 0;
-   /*
-    #10
-    Write;
-   // PSEL = 0;
-    #20
-    Read;
-    #10000; 
-    */
+    //#10
+   // Write;
+   //PSEL = 0;
+  //  #20
+  //  Read;
+   // #10000; 
   end
 always #1 PCLK =  ~PCLK;
 
